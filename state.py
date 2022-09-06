@@ -47,13 +47,14 @@ states = {
 
 state_names = list(states.keys())
 for state in state_names:
-    file = open(f'details/{state}.csv', "w", newline="")
+    file = open(f'csv/states/{state}.csv', "w", newline="")
     writer = csv.writer(file)
     page_url = f'https://elora.aerb.gov.in/ELORA/graphDataListByStateSummary.htm?state={states[state]}'
 
     request = urllib.request.urlopen(page_url).read()
     soup = BeautifulSoup(request, 'lxml')
     tbody = soup('table', {"id": "displayDataTblSummary"})[0].find_all('tr')
+    print(f'scrapping: {state}')
 
     for row in tbody:
         cols = row.findChildren(recursive=False)
